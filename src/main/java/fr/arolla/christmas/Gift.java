@@ -1,5 +1,5 @@
 package fr.arolla.christmas;
 
 public enum Gift {
-    BEAR, DOLL
+    BEAR, DOLL, KEN
 }

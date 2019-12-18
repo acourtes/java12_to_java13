@@ -1,36 +1,36 @@
 package fr.arolla.christmas;
 
 public class GiftGenerator {
-    private final static String LINE_SEPARATOR = System.lineSeparator();
-    private static final String BEAR = "  ___  " + LINE_SEPARATOR
-            + "{~._.~}" + LINE_SEPARATOR
-            + " ( Y ) " + LINE_SEPARATOR
-            + "()~*~()" + LINE_SEPARATOR
-            + "(_)-(_)";
-    private static final String DOLL = "     &&&    " + LINE_SEPARATOR
-            + "    (+.+)   " + LINE_SEPARATOR
-            + " ___\\=/___ " + LINE_SEPARATOR
-            + "(|_ ~~~  _|)" + LINE_SEPARATOR
-            + "   |___|    " + LINE_SEPARATOR
-            + "  / _ \\    " + LINE_SEPARATOR
-            + " /_/ \\_\\  " + LINE_SEPARATOR
-            + "/_)    (_\\  ";
+    private static final String MODEL = """
+            Dear child,
+            Here you have a %s !
+
+            Enjoy !
+            Santa Claus !""";
 
     public static String generateGift(Gift gift) {
-        String generatedGift;
-        // TODO : use new features of Java 13 to make things more fluent
-        switch (gift) {
-            case BEAR:
-                generatedGift = BEAR;
-                break;
-            case DOLL:
-                generatedGift = DOLL;
-                break;
-            default:
-                generatedGift = "?";
-                break;
-        }
+        // First way of assigning a variable with a switch expression
+        return switch (gift) {
+            case BEAR -> getBearMessage();
+            case DOLL, KEN -> getDollMessage();
+        };
+    }
 
-        return generatedGift;
+    public static String generateGiftYield(Gift gift) {
+        // Second way of assigning a variable with a switch expression
+        return switch (gift) {
+            case BEAR: yield getBearMessage();
+            case DOLL:
+            case KEN: yield getDollMessage();
+
+        };
+    }
+
+    private static String getDollMessage() {
+        return String.format(MODEL, "doll");
+    }
+
+    private static String getBearMessage() {
+        return String.format(MODEL, "bear");
     }
 }
